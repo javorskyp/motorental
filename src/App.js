@@ -15,13 +15,13 @@ class App extends Component {
       description: 'Rok 2021 pojemność 999,7 201KM 199kg',
       image: '' 
     },
-    
+
     {
       id: 2,
       name: 'Yamaha R1',
       city: 'Lublin',
       rating: 8.8,
-      description: 'Rok 2020 pojemność 998,2 199KM 208kg',
+      description: 'Rok 2021 pojemność 998,2 199KM 208kg',
       image: ''
     }
   ];
