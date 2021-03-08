@@ -15,6 +15,7 @@ class App extends Component {
       description: 'Rok 2021 pojemność 999,7 201KM 199kg',
       image: '' 
     },
+    
     {
       id: 2,
       name: 'Yamaha R1',
