@@ -29,7 +29,7 @@ function Motorcycle(props) {
               </div>
               <div className="col text-right">
                 <h5>Ocena: {props.rating}</h5>
-                <a href="#" className="btn btn-primary mt-2 px-4">Pokaż</a>
+                <a href="#" className={`btn btn-${props.theme} mt-2 px-4`}>Pokaż</a>
               </div>
             </div>
           </div>

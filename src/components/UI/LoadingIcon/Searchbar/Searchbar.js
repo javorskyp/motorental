@@ -9,7 +9,6 @@ function Searchbar(props) {
   const [term, setTerm] = useState('');
 
   const search = () => {
-    // console.log('szukaj!', term);
     props.onSearch(term);
   }
   const onKeyDownHandler = e => {
@@ -29,7 +28,7 @@ function Searchbar(props) {
         placeholder="Szukaj..." />
       <button
         onClick={search}
-        className="ml-1 btn btn-secondary">
+        className={`m1-1 btn btn-${props.theme}`}>
           Szukaj
       </button>
     </div>

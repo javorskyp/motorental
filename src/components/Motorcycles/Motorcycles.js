@@ -11,7 +11,11 @@ class Motorcycles extends Component {
     return (
       <div className={styles.container}>
         <h2 className={styles.title}>Oferty motocykli:</h2>
-        {this.props.motorcycles.map(motorcycle => <Motorcycle key={motorcycle.id} {...motorcycle} />)}
+        {this.props.motorcycles.map(motorcycle => 
+        <Motorcycle 
+          key={motorcycle.id} {...motorcycle} 
+          theme={this.props.theme}
+          />)}
       </div>
     );
   }
