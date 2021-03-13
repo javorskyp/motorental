@@ -4,18 +4,17 @@ import Motorcycle from './Motorcycle/Motorcycle';
 import styles from './Motorcycles.module.css';
 
 const propTypes = {
-  motorcycles: PropTypes.array.isRequired
+  motorcycles: PropTypes.array.isRequired,
 }
 class Motorcycles extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <h2 className={styles.title}>Oferty motocykli:</h2>
-        {this.props.motorcycles.map(motorcycle => 
-        <Motorcycle 
-          key={motorcycle.id} {...motorcycle} 
-          theme={this.props.theme}
-          />)}
+        <h2 className={styles.title}>Oferty:</h2>
+        {this.props.motorcycles.map(motorcycle => (
+          <Motorcycle 
+            key={motorcycle.id} {...motorcycle} />
+        ))}
       </div>
     );
   }

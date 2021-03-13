@@ -4,7 +4,7 @@ import styles from './Header.module.css';
 function Header(props) {
   return (
     <header className={`${styles.header}`}>
-      {props.childern}
+      {props.children}
     </header>
   );
 }

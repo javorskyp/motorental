@@ -1,12 +1,16 @@
 function Layout(props) {
-    return (
-        <did>
-            <div className="container">{props.header}</div>
-            <div className="container">{props.menu}</div>
-            <div className="container">{props.content}</div>
-            <div>{props.footer}</div>
-        </did>
-    )
+  return (
+    <div>
+      <div>{props.header}</div>
+      <div className="container">
+          {props.menu}  
+      </div>
+      <div className="container">
+        {props.content}
+      </div>
+      <div>{props.footer}</div>
+    </div>
+  );
 }
 
-export default Layout; 
+export default Layout;
