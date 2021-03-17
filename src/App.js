@@ -55,7 +55,7 @@ class App extends Component {
     isAuthenticated: false
   };
 
-  searchHandler(term) {
+  searchHandler = (term) => {
     const motorcycles = [...this.motorcycles]
       .filter(x => x.name
           .toLowerCase()
@@ -91,7 +91,7 @@ class App extends Component {
     const header = (
       <Header>
         <Searchbar 
-          onSearch={term => this.searchHandler(term)}
+          onSearch={this.searchHandler}
           />
         <ThemeButton />
       </Header>
