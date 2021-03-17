@@ -1,5 +1,10 @@
+import Fragment from '../../hoc/Fragment';
+import withClass from '../../hoc/withClass';
+
+
 function Layout(props) {
   return (
+    <>
     <div>
       <div>{props.header}</div>
       <div className="container">
@@ -10,7 +15,8 @@ function Layout(props) {
       </div>
       <div>{props.footer}</div>
     </div>
+    </>
   );
 }
 
-export default Layout;
+export default withClass(Layout, 'layout');

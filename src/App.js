@@ -91,7 +91,7 @@ class App extends Component {
     const header = (
       <Header>
         <Searchbar 
-          onSearch={this.searchHandler}
+          onSearch={term => this.searchHandler}
           />
         <ThemeButton />
       </Header>
@@ -107,8 +107,8 @@ class App extends Component {
     return (
       <AuthContext.Provider value={{ 
         isAuthenticated: this.state.isAuthenticated,
-        login: this.login,
-        logout: this.logout
+        login: () => this.setState({isAuthenticated: true}),
+        logout: () => this.setState({isAuthenticated: false}),
       }}>
         <ThemeContext.Provider value={{
           color: this.state.theme,
