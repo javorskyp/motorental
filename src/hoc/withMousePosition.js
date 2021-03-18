@@ -10,11 +10,18 @@ const withMousePosition = (WrappedComponent) => {
     componentDidMount() {
       document.body.addEventListener(
           'mousemove', 
-          this.updateMousePostion.bind(this)
+          this.updateMousePostion
         );
     }
 
-    updateMousePostion(e) {
+    componentWillUnmount() {
+      document.body.removeEventListener(
+        'mousemove', 
+        this.updateMousePostion
+      );
+    }
+
+    updateMousePostion = (e) =>  {
       this.setState({
         x: e.pageX,
         y: e.pageY

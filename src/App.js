@@ -91,7 +91,7 @@ class App extends Component {
     const header = (
       <Header>
         <Searchbar 
-          onSearch={term => this.searchHandler}
+          onSearch={this.searchHandler}
           />
         <ThemeButton />
       </Header>
