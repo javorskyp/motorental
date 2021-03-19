@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import styles from './Motorcycle.module.css';
 import MotoImg from '../../../assets/images/Gsxr10002021.jpg'; 
+import ThemeContext from '../../../context/themeContext';
+import { useContext } from 'react';
 
 
 const propTypes = {
@@ -9,7 +11,10 @@ const propTypes = {
   rating: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired
 };
+
 function Motorcycle(props) {
+  const theme = useContext(ThemeContext);
+
   return (
     <div className={`card ${styles.motorcycle}`}>
       <div className="card-body">
@@ -29,7 +34,9 @@ function Motorcycle(props) {
               </div>
               <div className="col text-right">
                 <h5>Ocena: {props.rating}</h5>
-                <a href="#" className="btn btn-primary mt-2 px-4">Pokaż</a>
+                  <a href="#" className={`btn btn-${theme.color} mt-2 px-4`}>
+                    Pokaż
+                  </a>
               </div>
             </div>
           </div>
@@ -40,9 +47,10 @@ function Motorcycle(props) {
             </p>
           </div>
         </div>
+
       </div>
     </div>
-  ); 
+  );
 }
 
 Motorcycle.propTypes = propTypes;

@@ -2,12 +2,14 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  text-align: left;
+  text-align: right;
 }
 .menuItem {
   display: inline-block;
 }
+.menuItem a {
+  margin-right: 10px;
+}
 .menuContainer {
-  border: 1px solid #cdcdcd;
   margin: 10px 0;
 }

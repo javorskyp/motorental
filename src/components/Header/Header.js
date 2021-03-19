@@ -1,13 +1,24 @@
 import React from 'react';
-import Searchbar from './Searchbar/Searchbar';
 import styles from './Header.module.css';
+import withMousePosition from '../../hoc/withMousePosition';
+
 
 function Header(props) {
+  const paralaxStyles = {
+    transform: `translate(
+                  ${props.mouseX / -20}px, 
+                  ${props.mouseY / 120}px
+                )`
+  };
+
   return (
-    <header className={`container ${styles.header}`}>
-      <Searchbar onSearch={props.onSearch} />
+    <header  className={`${styles.header}`}>
+      <div 
+          className={styles.headerImage}
+          style={paralaxStyles}></div>
+      {props.children}
     </header>
   );
 }
 
-export default Header;
+export default withMousePosition(Header);
