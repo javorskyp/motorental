@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import  { useEffect, useReducer, useCallback} from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
@@ -10,9 +10,9 @@ import Footer from './components/Footer/Footer';
 import ThemeButton from './components/UI/ThemeButton/ThemeButton';
 import ThemeContext from './context/themeContext';
 import AuthContext from './context/authContext';
+import BestMoto from './components/Motorcycles/BestMoto/BestMoto';
 
-class App extends Component { 
-  motorcycles = [
+  const backendMotorcycles = [
     {
       id: 1,
       name: 'Gsxr 1000',
@@ -48,82 +48,100 @@ class App extends Component {
       image: ''
     }
   ];
-  state = {
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'change-theme':
+        const theme = state.theme === 'primary' ? 'danger' : 'primary'
+        return {...state,theme};
+        case 'set-motorcycles':
+          return {...state, motorcycles: action.motorcycles}
+        case 'set-loading':
+          return {...state, loading: action.loading }
+        case 'login':
+            return {...state, isAuthenticated: true};
+        case 'logout':
+              return {...state, isAuthenticated: false};
+      default:
+        throw new Error ('no action' + action.tyope)
+    }
+  }
+
+  const initialState = {
     motorcycles: [],
     loading: true,
-    theme: 'primary',
-    isAuthenticated: false
+    isAuthenticated: false,
+    theme: 'primary'
+  }
+
+function App() {
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const searchHandler = (term) => {
+    const newMotorcycles = [...backendMotorcycles]
+      .filter(x => x.name
+      .toLowerCase()
+      .includes(term.toLowerCase()));
+    dispatch({type: 'set-motorcycles', motorcycles: newMotorcycles})
   };
 
-  searchHandler = (term) => {
-    const motorcycles = [...this.motorcycles]
-      .filter(x => x.name
-          .toLowerCase()
-          .includes(term.toLowerCase()));
-    this.setState({ motorcycles });
-  }
+  const getBestMoto = useCallback(() => {
+      if(state.motorcycles.length < 2) {
+        return null;
+      } else {
+        return state.motorcycles
+        .sort((a,b)=> a.rating > b.rating ? -1: 1)[0];
+      }
+  }, [state.motorcycles]);
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ 
-          motorcycles: this.motorcycles, 
-          loading: false 
-      });
+  useEffect(() => {
+      setTimeout(() => {
+      dispatch({type: 'set-motorcycles', motorcycles: backendMotorcycles});
+      dispatch({type: 'set-loading', loading: false});
     }, 1000);
-  }
+  }, []);
 
-  changeTheme = () => {
-    const newTheme = this.state.theme === 'primary' ? 'danger' : 'primary';
-    this.setState({ theme: newTheme });
-  }
+  const header = (
+    <Header>
+      <Searchbar 
+        onSearch={searchHandler}
+        />
+      <ThemeButton />
+    </Header>
+  );
+  const content = (
+    state.loading 
+      ? <LoadingIcon />
+      : (
+        <>
+        {getBestMoto() ? <BestMoto getMotorcycle ={getBestMoto}/> : null}
+        <Motorcycles motorcycles={state.motorcycles}/>
+        </>
+      )
+  );
+  const menu = <Menu />;
+  const footer = <Footer />;
 
-  login = (e) => {
-    e.preventDefault();
-    this.setState({ isAuthenticated: true })
-  }
-
-  logout = (e) => {
-    e.preventDefault();
-    this.setState({ isAuthenticated: false })
-  }
-
-  render() {
-    const header = (
-      <Header>
-        <Searchbar 
-          onSearch={this.searchHandler}
-          />
-        <ThemeButton />
-      </Header>
-    );
-    const content = (
-      this.state.loading 
-        ? <LoadingIcon />
-        : <Motorcycles motorcycles={this.state.motorcycles} />
-    );
-    const menu = <Menu />;
-    const footer = <Footer />;
-
-    return (
-      <AuthContext.Provider value={{ 
-        isAuthenticated: this.state.isAuthenticated,
-        login: () => this.setState({isAuthenticated: true}),
-        logout: () => this.setState({isAuthenticated: false}),
+  return (
+    <AuthContext.Provider value={{ 
+      isAuthenticated: state.isAuthenticated,
+      login: () => dispatch({type: 'login'}),
+      logout: () => dispatch({type: 'logout'}),
+    }}>
+      <ThemeContext.Provider value={{
+        color: state.theme,
+        changeTheme: () => dispatch ({ type: 'change-theme'})
       }}>
-        <ThemeContext.Provider value={{
-          color: this.state.theme,
-          changeTheme: this.changeTheme
-        }}>
-          <Layout
-            header={header}
-            menu={menu}
-            content={content}
-            footer={footer}
-          />
-        </ThemeContext.Provider>
-      </AuthContext.Provider>
-    );
-  }
-}
+        <Layout
+          header={header}
+          menu={menu}
+          content={content}
+          footer={footer}
+        />
+      </ThemeContext.Provider>
+    </AuthContext.Provider>
+  );
+};
 
 export default App;
