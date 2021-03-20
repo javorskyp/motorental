@@ -11,6 +11,9 @@ import ThemeButton from './components/UI/ThemeButton/ThemeButton';
 import ThemeContext from './context/themeContext';
 import AuthContext from './context/authContext';
 import BestMoto from './components/Motorcycles/BestMoto/BestMoto';
+import LastMoto from './components/Motorcycles/LastMoto/LastMoto';
+import useStateStorage from './components/hooks/useStateStorage';
+import useWebsiteTitle from './components/hooks/useWebsiteTitle';
 
   const backendMotorcycles = [
     {
@@ -70,13 +73,15 @@ import BestMoto from './components/Motorcycles/BestMoto/BestMoto';
   const initialState = {
     motorcycles: [],
     loading: true,
-    isAuthenticated: false,
+    isAuthenticated: true,
     theme: 'primary'
   }
 
 function App() {
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [lastMoto, setLastMoto] = useStateStorage('last-moto', null);
+  useWebsiteTitle('Strona główna');
 
   const searchHandler = (term) => {
     const newMotorcycles = [...backendMotorcycles]
@@ -86,14 +91,17 @@ function App() {
     dispatch({type: 'set-motorcycles', motorcycles: newMotorcycles})
   };
 
-  const getBestMoto = useCallback(() => {
+  const getBestMoto = () => {
       if(state.motorcycles.length < 2) {
         return null;
       } else {
         return state.motorcycles
         .sort((a,b)=> a.rating > b.rating ? -1: 1)[0];
       }
-  }, [state.motorcycles]);
+  }
+
+  const openMotorcycle = (motorcycle) => setLastMoto(motorcycle);
+  const removeLastMoto = () => setLastMoto(null);
 
   useEffect(() => {
       setTimeout(() => {
@@ -115,8 +123,10 @@ function App() {
       ? <LoadingIcon />
       : (
         <>
-        {getBestMoto() ? <BestMoto getMotorcycle ={getBestMoto}/> : null}
-        <Motorcycles motorcycles={state.motorcycles}/>
+        {lastMoto ? <LastMoto {...lastMoto} onRemove={removeLastMoto}/> : null}
+        {getBestMoto() 
+          ? <BestMoto getMotorcycle ={getBestMoto}/> : null}
+        <Motorcycles onOpen={openMotorcycle} motorcycles={state.motorcycles}/>
         </>
       )
   );

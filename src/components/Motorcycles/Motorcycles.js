@@ -11,7 +11,8 @@ function Motorcycles(props) {
       <div className={styles.container}>
         <h2 className={styles.title}>Oferty:</h2>
         {props.motorcycles.map(motorcycle => (
-          <Motorcycle 
+          <Motorcycle
+            onOpen={props.onOpen}
             key={motorcycle.id} {...motorcycle} />
         ))}
       </div>

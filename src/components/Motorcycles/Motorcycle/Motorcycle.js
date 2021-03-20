@@ -14,6 +14,10 @@ const propTypes = {
 
 function Motorcycle(props) {
   const theme = useContext(ThemeContext);
+  const clickHandler = e => {
+    e.preventDefault();
+    props.onOpen(props);
+  }
 
   return (
     <div className={`card ${styles.motorcycle}`}>
@@ -34,7 +38,7 @@ function Motorcycle(props) {
               </div>
               <div className="col text-right">
                 <h5>Ocena: {props.rating}</h5>
-                  <a href="#" className={`btn btn-${theme.color} mt-2 px-4`}>
+                  <a href="#" onClick={clickHandler} className={`btn btn-${theme.color} mt-2 px-4`}>
                     Pokaż
                   </a>
               </div>
