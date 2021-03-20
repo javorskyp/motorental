@@ -12,8 +12,8 @@ import ThemeContext from './context/themeContext';
 import AuthContext from './context/authContext';
 import BestMoto from './components/Motorcycles/BestMoto/BestMoto';
 import LastMoto from './components/Motorcycles/LastMoto/LastMoto';
-import useStateStorage from './components/hooks/useStateStorage';
-import useWebsiteTitle from './components/hooks/useWebsiteTitle';
+import useStateStorage from './hooks/useStateStorage';
+import useWebsiteTitle from './hooks/useWebsiteTitle';
 
   const backendMotorcycles = [
     {

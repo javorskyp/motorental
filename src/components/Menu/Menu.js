@@ -1,5 +1,5 @@
 import style from './Menu.module.css';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 function Menu() {
 
