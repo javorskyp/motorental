@@ -3,7 +3,7 @@ import styles from './Motorcycle.module.css';
 import MotoImg from '../../../assets/images/Gsxr10002021.jpg'; 
 import ThemeContext from '../../../context/themeContext';
 import { useContext } from 'react';
-
+import { Link , BrowserRouter as Router} from 'react-router-dom';
 
 const propTypes = {
   name: PropTypes.string.isRequired,
@@ -15,11 +15,12 @@ const propTypes = {
 function Motorcycle(props) {
   const theme = useContext(ThemeContext);
   const clickHandler = e => {
-    e.preventDefault();
+    //e.preventDefault();
     props.onOpen(props);
   }
 
   return (
+  
     <div className={`card ${styles.motorcycle}`}>
       <div className="card-body">
       
@@ -38,9 +39,12 @@ function Motorcycle(props) {
               </div>
               <div className="col text-right">
                 <h5>Ocena: {props.rating}</h5>
-                  <a href="#" onClick={clickHandler} className={`btn btn-${theme.color} mt-2 px-4`}>
+                <Link 
+                    onClick={clickHandler}
+                    to={`/motorcycles/${props.id}`}
+                    className={`btn btn-${theme.color} mt-2 px-4`}>
                     Pokaż
-                  </a>
+                  </Link>
               </div>
             </div>
           </div>
@@ -54,6 +58,7 @@ function Motorcycle(props) {
 
       </div>
     </div>
+    
   );
 }
 
