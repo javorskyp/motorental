@@ -68,7 +68,6 @@ export default function Home(props) {
       }, 1000);
     }, []);
     
-
     return loading ? <LoadingIcon/> : (
         <>
         {lastMoto ? <LastMoto {...lastMoto} onRemove={removeLastMoto}/> : null}

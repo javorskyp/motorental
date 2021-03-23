@@ -12,61 +12,17 @@ import AuthContext from './context/authContext';
 import ReducerContext from './context/reducerContext';
 import { reducer, initialState } from './reducer';
 import Home from './pages/Home/Home';
-import Moto from './pages/Home/Moto';
-
-
-  const backendMotorcycles = [
-    {
-      id: 1,
-      name: 'Gsxr 1000',
-      city: 'Warszawa',
-      rating: 8.3,
-      description: 'Rok 2021 pojemność 999,7 201KM 199kg',
-      image: '' 
-    },
-
-    {
-      id: 2,
-      name: 'Zx10r',
-      city: 'Wrocław',
-      rating: 9.2,
-      description: 'Rok 2021 pojemność 999,8 201KM 211kg',
-      image: ''
-    },
-
-    {
-      id: 3,
-      name: 'Yamaha R1',
-      city: 'Lublin',
-      rating: 8.8,
-      description: 'Rok 2021 pojemność 998,2 199KM 208kg',
-      image: ''
-    },
-    {
-      id: 4,
-      name: 'CBR 1000RR',
-      city: 'Rzeszów',
-      rating: 8.1,
-      description: 'Rok 2021 pojemność 998,4 205KM 203kg',
-      image: ''
-    }
-  ];
+import Moto from './pages/Moto/Moto';
+import Search from './pages/Search/Search';
+import Profile from './pages/Profile/Profile';
 
 function App() {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const searchHandler = (term) => {
-    const newMotorcycles = [...backendMotorcycles]
-      .filter(x => x.name
-      .toLowerCase()
-      .includes(term.toLowerCase()));
-    dispatch({type: 'set-motorcycles', motorcycles: newMotorcycles})
-      };
-
   const header = (
     <Header>
-      <Searchbar onSearch={searchHandler}/>
+      <Searchbar/>
       <ThemeButton />
     </Header>
   );
@@ -75,6 +31,8 @@ function App() {
         <div>
         <Switch>
           <Route path="/motocycles/:id" component={Moto}/>
+          <Route path="/wyszukaj/:term" component={Search}/>
+          <Route path="/profil" component={Profile} />
           <Route path="/" component={Home}/>
         </Switch>
     

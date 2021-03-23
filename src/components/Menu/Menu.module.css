@@ -10,6 +10,9 @@
 .menuItem a {
   margin-right: 10px;
 }
+.menuItemActive {
+  text-decoration: underline;
+}
 .menuContainer {
   margin: 10px 0;
 }

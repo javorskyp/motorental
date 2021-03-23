@@ -3,8 +3,9 @@ import moment from 'moment';
 
 const BestMoto = (props) => {
     const [time, setTime] = useState('');
-    const endTime = moment().add(43, 'minutes').add(54, 'seconds'); 
+
     const motorcycle = props.getMotorcycle();
+    const endTime = moment().add(43, 'minutes').add(54, 'seconds'); 
     let interval = null;
 
     useEffect(() => {

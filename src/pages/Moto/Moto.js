@@ -1,16 +1,13 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ReducerContext from '../../context/reducerContext';
+import LoadingIcon from '../../components/UI/LoadingIcon/LoadingIcon';
 
 function Moto(props) {
     const { id } = useParams();
-    const [moto, setMoto] = useState({})
-    const reducer = useContext(ReducerContext);
+    const [moto, setMoto] = useState(null);
+    const [loading, setLoading] = useState(true)
 
     const fetchMoto = () => {
-        
-
-
         setMoto({
                 id: 1,
                 name: 'Gsxr 1000',
@@ -19,19 +16,16 @@ function Moto(props) {
                 description: 'Rok 2021 pojemność 999,7 201KM 199kg',
                 image: '' 
         });
-        reducer.dispatch({type: 'set-loading', loading: false});
+        setLoading(false)
     }
 
     useEffect(() => {
-        reducer.dispatch({type: 'set-loading', loading: true});
             setTimeout(() => {
                 fetchMoto();
             }, 500);
     }, []);
 
-    if(reducer.state.loading) return null;
-
-    return <h1>Moto: {moto.title} </h1>
+    return loading ? <LoadingIcon /> : (<h1>Moto: {moto.title} </h1> );
 }
 
 export default Moto;
