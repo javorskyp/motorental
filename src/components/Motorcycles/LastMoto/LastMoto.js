@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'; 
+
 function LastMoto(props) {
 
     return (
@@ -13,9 +15,9 @@ function LastMoto(props) {
           <div 
             style={{width: '100px'}} 
             className="ml-auto d-flex justify-content-between">
-            <a href="#" className="btn btn-sm btn-dark">
+            <Link to={`/motocykle/${props.id}`} className="btn btn-sm btn-dark">
               Tak!
-            </a>
+            </Link>
             <button onClick={props.onRemove} className="btn btn-sm btn-dark">
               Nie
             </button>

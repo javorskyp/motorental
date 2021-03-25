@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 const BestMoto = (props) => {
@@ -33,9 +34,9 @@ const BestMoto = (props) => {
                     <p>Ocena: {motorcycle.rating}</p>
                 </div>
                 <p>Do końca oferty pozostało: {time}</p>
-                <a href="#" className="btn btn-sm btn-light">
+                <Link to={`/motocykle/${motorcycle.id}`} className="btn btn-sm btn-light">
                     Pokaż
-                </a>
+                </Link>
             </div>
         </div>
     );

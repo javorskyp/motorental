@@ -63,7 +63,7 @@ export default function Home(props) {
 
     useEffect(() => {
         setTimeout(() => {
-            setMotorcycles(backendMotorcycles)
+            setMotorcycles(backendMotorcycles);
             setLoading(false);
       }, 1000);
     }, []);
@@ -74,5 +74,5 @@ export default function Home(props) {
           {getBestMoto() ? <BestMoto getMotorcycle ={getBestMoto}/> : null}
           <Motorcycles onOpen={openMotorcycle} motorcycles={motorcycles}/>
         </>
-    )
+    );
 }

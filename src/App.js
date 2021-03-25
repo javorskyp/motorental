@@ -1,4 +1,4 @@
-import  { useReducer } from 'react';
+import  { useReducer, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
@@ -14,7 +14,12 @@ import { reducer, initialState } from './reducer';
 import Home from './pages/Home/Home';
 import Moto from './pages/Moto/Moto';
 import Search from './pages/Search/Search';
-import Profile from './pages/Profile/Profile';
+import NotFound from './pages/404/404';
+import Login from './pages/Auth/Login/Login';
+import AuthenticateRoute from './components/AuthenticatedRoute/AuthenticatedRoute';
+import ErrorBoundary from './hoc/ErrorBoundary';
+
+const Profile = lazy(() => import('./pages/Profile/Profile'));
 
 function App() {
 
@@ -29,13 +34,20 @@ function App() {
 
   const content = (
         <div>
+          <ErrorBoundary>
+          <Suspense fallback={<p>Ładowanie...</p>}>
         <Switch>
-          <Route path="/motocycles/:id" component={Moto}/>
-          <Route path="/wyszukaj/:term" component={Search}/>
-          <Route path="/profil" component={Profile} />
+          <AuthenticateRoute path="/profil" component={Profile}/>
+          <Route path="/motorcycles/:id" component={Moto}/>
+          <Route path="/wyszukaj/:term?" component={Search}/>
+          <Route path="/zaloguj" component={Login} />
           <Route path="/" component={Home}/>
-        </Switch>
-    
+          <Route component={NotFound}/>
+
+
+             </Switch>
+         </Suspense>
+        </ErrorBoundary>
         </div>
   );
 
@@ -68,6 +80,6 @@ function App() {
     </AuthContext.Provider>
     </Router>
   );
-};
+}
 
 export default App;
