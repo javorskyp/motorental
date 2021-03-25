@@ -1,30 +1,38 @@
-import React, { useContext } from 'react';
 import style from './Menu.module.css';
-import AuthContext from '../../context/authContext';
+import useAuth from '../../hooks/useAuth';
+import { NavLink } from 'react-router-dom';
 
 function Menu() {
-  const auth = useContext(AuthContext);
+  const [auth, setAuth] = useAuth();
 
   const login = (e) => {
     e.preventDefault();
-    auth.login();
+    setAuth(true);
   }
   const logout = (e) => {
     e.preventDefault();
-    auth.logout();
+    setAuth(false);
   }
 
   return (
     <div className={`${style.menuContainer} breadcrumb`}>
       <ul className={style.menu}>
         <li className={style.menuItem}>
-          <a href="#">Home</a>
+          <NavLink exact to="/" activeClassName={style.menuItemActive}>
+            Home
+          </NavLink>
         </li>
-        {auth.isAuthenticated 
-          ? (
+        {auth ? (
+            <>
+            <li className={style.menuItem}>
+                <NavLink to="/profil" activeClassName={style.menuItemActive}>
+                  Mój profil
+                </NavLink>
+            </li>
             <li className={style.menuItem}>
               <a href="#" onClick={logout}>Wyloguj</a>
             </li>
+            </>
           ) : (
             <li className={style.menuItem}>
               <a href="#" onClick={login}>Zaloguj</a>

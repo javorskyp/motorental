@@ -1,129 +1,73 @@
-import React, { Component } from 'react';
+import  { useReducer } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
-import Motorcycles from './components/Motorcycles/Motorcycles';
-import LoadingIcon from './components/UI/LoadingIcon/LoadingIcon';
 import Searchbar from './components/UI/Searchbar/Searchbar';
 import Layout from './components/Layout/Layout';
 import Footer from './components/Footer/Footer';
 import ThemeButton from './components/UI/ThemeButton/ThemeButton';
 import ThemeContext from './context/themeContext';
 import AuthContext from './context/authContext';
+import ReducerContext from './context/reducerContext';
+import { reducer, initialState } from './reducer';
+import Home from './pages/Home/Home';
+import Moto from './pages/Moto/Moto';
+import Search from './pages/Search/Search';
+import Profile from './pages/Profile/Profile';
 
-class App extends Component { 
-  motorcycles = [
-    {
-      id: 1,
-      name: 'Gsxr 1000',
-      city: 'Warszawa',
-      rating: 8.3,
-      description: 'Rok 2021 pojemność 999,7 201KM 199kg',
-      image: '' 
-    },
+function App() {
 
-    {
-      id: 2,
-      name: 'Zx10r',
-      city: 'Wrocław',
-      rating: 9.2,
-      description: 'Rok 2021 pojemność 999,8 201KM 211kg',
-      image: ''
-    },
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-    {
-      id: 3,
-      name: 'Yamaha R1',
-      city: 'Lublin',
-      rating: 8.8,
-      description: 'Rok 2021 pojemność 998,2 199KM 208kg',
-      image: ''
-    },
-    {
-      id: 4,
-      name: 'CBR 1000RR',
-      city: 'Rzeszów',
-      rating: 8.1,
-      description: 'Rok 2021 pojemność 998,4 205KM 203kg',
-      image: ''
-    }
-  ];
-  state = {
-    motorcycles: [],
-    loading: true,
-    theme: 'primary',
-    isAuthenticated: false
-  };
+  const header = (
+    <Header>
+      <Searchbar/>
+      <ThemeButton />
+    </Header>
+  );
 
-  searchHandler = (term) => {
-    const motorcycles = [...this.motorcycles]
-      .filter(x => x.name
-          .toLowerCase()
-          .includes(term.toLowerCase()));
-    this.setState({ motorcycles });
-  }
+  const content = (
+        <div>
+        <Switch>
+          <Route path="/motocycles/:id" component={Moto}/>
+          <Route path="/wyszukaj/:term" component={Search}/>
+          <Route path="/profil" component={Profile} />
+          <Route path="/" component={Home}/>
+        </Switch>
+    
+        </div>
+  );
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ 
-          motorcycles: this.motorcycles, 
-          loading: false 
-      });
-    }, 1000);
-  }
+  const menu = <Menu />;
+  const footer = <Footer />;
 
-  changeTheme = () => {
-    const newTheme = this.state.theme === 'primary' ? 'danger' : 'primary';
-    this.setState({ theme: newTheme });
-  }
-
-  login = (e) => {
-    e.preventDefault();
-    this.setState({ isAuthenticated: true })
-  }
-
-  logout = (e) => {
-    e.preventDefault();
-    this.setState({ isAuthenticated: false })
-  }
-
-  render() {
-    const header = (
-      <Header>
-        <Searchbar 
-          onSearch={this.searchHandler}
-          />
-        <ThemeButton />
-      </Header>
-    );
-    const content = (
-      this.state.loading 
-        ? <LoadingIcon />
-        : <Motorcycles motorcycles={this.state.motorcycles} />
-    );
-    const menu = <Menu />;
-    const footer = <Footer />;
-
-    return (
-      <AuthContext.Provider value={{ 
-        isAuthenticated: this.state.isAuthenticated,
-        login: () => this.setState({isAuthenticated: true}),
-        logout: () => this.setState({isAuthenticated: false}),
+  return (
+    <Router>
+    <AuthContext.Provider value={{ 
+      isAuthenticated: state.isAuthenticated,
+      login: () => dispatch({type: 'login'}),
+      logout: () => dispatch({type: 'logout'}),
+    }}>
+      <ThemeContext.Provider value={{
+        color: state.theme,
+        changeTheme: () => dispatch ({ type: 'change-theme'})
       }}>
-        <ThemeContext.Provider value={{
-          color: this.state.theme,
-          changeTheme: this.changeTheme
-        }}>
-          <Layout
-            header={header}
-            menu={menu}
-            content={content}
-            footer={footer}
-          />
-        </ThemeContext.Provider>
-      </AuthContext.Provider>
-    );
-  }
-}
+       <ReducerContext.Provider value ={{
+         state: state,
+         dispatch: dispatch
+       }}>
+        <Layout
+          header={header}
+          menu={menu}
+          content={content}
+          footer={footer}
+        />
+       </ReducerContext.Provider>
+      </ThemeContext.Provider>
+    </AuthContext.Provider>
+    </Router>
+  );
+};
 
 export default App;

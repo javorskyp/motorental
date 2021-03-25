@@ -1,7 +1,6 @@
 import Fragment from '../../hoc/Fragment';
 import withClass from '../../hoc/withClass';
 
-
 function Layout(props) {
   return (
     <>
