@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import LoadingButton from '../../components/UI/LoadingButton/LoadingButton';
+import { validateEmail } from '../../helpers/validations';
 
 export default function ProfileDetails(props) {
 
@@ -10,6 +11,8 @@ export default function ProfileDetails(props) {
     email: '',
     password: ''
   });
+
+  const buttonDisabled = Object.values(errors).filter(x => x).length;
 
   const submit = (e) => {
     e.preventDefault();
@@ -23,10 +26,25 @@ export default function ProfileDetails(props) {
 
   }
 
+
+
   useEffect(() => {
-    
+    if (validateEmail(email)) {
+      setErrors({...errors, email: ''});
+    } else {
+      setErrors({...errors, email: 'Niepoprawny email'});
+    }
   }, [email]);
 
+  useEffect(() => {
+    if (password.lenght >= 4 || !password) {
+      setErrors({...errors, password: ''});
+    } else {
+      setErrors({...errors, password: 'Niepoprawne hasło'});
+    }
+  }, [password]);
+
+ 
 
     return (
       <form onSubmit={submit}>
@@ -47,7 +65,7 @@ export default function ProfileDetails(props) {
           {errors.password}
         </div>
       </div>
-      <LoadingButton Loading={loading} label="Zapisz"/>
+      <LoadingButton Loading={loading} disabled={buttonDisabled} label="Zapisz"/>
     </form>
       );
     }
