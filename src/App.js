@@ -47,8 +47,6 @@ function App() {
           <Route path="/rejstracja" component={Register} />
           <Route path="/" component={Home}/>
           <Route component={NotFound}/>
-
-
          </Switch>
         </Suspense>
       </ErrorBoundary>

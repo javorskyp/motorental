@@ -73,12 +73,7 @@ export default function Register(props) {
             showError={form.password.showError} />
 
           <div className="text-left">
-            <LoadingButton 
-              loading={loading} 
-              disabled={!valid}
-              className="btn-success">
-                Gotowe!
-            </LoadingButton>
+            <LoadingButton loading={loading} disabled={!valid} className="btn-success" label="Zarejestruj"/>
           </div>
 
         </form>

@@ -153,12 +153,8 @@ const AddMoto = props => {
               error={form.status.error}
               showError={form.status.showError} />
   
-            <div className="text-right">
-              <LoadingButton 
-                loading={loading} 
-                className="btn-success">
-                  Dodaj motocykl
-              </LoadingButton>
+            <div className="text-center">
+              <LoadingButton loading={loading} className="btn-success" label="Dodaj motocykl"/>
             </div>
           </form>
         </div>
