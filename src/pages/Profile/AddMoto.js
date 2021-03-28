@@ -107,10 +107,10 @@ const AddMoto = props => {
               type="select"
               onChange={val => changeHandler(val, 'capacity')}
               options={[
-                { value: 1, label: 1 },
-                { value: 2, label: 2 },
-                { value: 3, label: 3 },
-                { value: 4, label: 4 },
+                { value: 1, label: 250 },
+                { value: 2, label: 500 },
+                { value: 3, label: 600 },
+                { value: 4, label: 1000 },
               ]}
               error={form.capacity.error}
               showError={form.capacity.showError} />
