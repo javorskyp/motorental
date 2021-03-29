@@ -67,7 +67,7 @@ const AddMoto = props => {
             ...form[fieldName],
             value,
             showError: true,
-            error: error
+            error
           } 
         });
     }
