@@ -2,6 +2,7 @@ import { useState } from "react";
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 import { validate } from '../../../helpers/validations';
 import Input from '../../../components/Input/Input';
+import axios from '../../../axios';
 
 export default function Register(props) {
   const [loading, setLoading] = useState(false);
@@ -24,9 +25,12 @@ export default function Register(props) {
                     .filter(error => error)
                     .length;
 
-  const submit = e => {
+  const submit = async e => {
     e.preventDefault();
     setLoading(true);
+
+    const res = await axios.post('users.json');
+ 
 
     setTimeout(() => {
       setLoading(false);
