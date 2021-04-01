@@ -16,8 +16,10 @@ import Moto from './pages/Moto/Moto';
 import Search from './pages/Search/Search';
 import NotFound from './pages/404/404';
 import Login from './pages/Auth/Login/Login';
-import AuthenticateRoute from './components/AuthenticatedRoute/AuthenticatedRoute';
+import Register from './pages/Auth/Register/Register';
+import AuthenticateRoute from './hoc/AuthenticatedRoute';
 import ErrorBoundary from './hoc/ErrorBoundary';
+import AddMoto from './pages/Profile/AddMoto';
 
 const Profile = lazy(() => import('./pages/Profile/Profile'));
 
@@ -33,22 +35,22 @@ function App() {
   );
 
   const content = (
-        <div>
-          <ErrorBoundary>
-          <Suspense fallback={<p>Ładowanie...</p>}>
+    <div>
+      <ErrorBoundary>
+        <Suspense fallback={<p>Ładowanie...</p>}>
         <Switch>
+          <AuthenticateRoute path="/profil/motorcycles/add" component={AddMoto}/>
           <AuthenticateRoute path="/profil" component={Profile}/>
           <Route path="/motorcycles/:id" component={Moto}/>
           <Route path="/wyszukaj/:term?" component={Search}/>
           <Route path="/zaloguj" component={Login} />
+          <Route path="/rejstracja" component={Register} />
           <Route path="/" component={Home}/>
           <Route component={NotFound}/>
-
-
-             </Switch>
-         </Suspense>
-        </ErrorBoundary>
-        </div>
+         </Switch>
+        </Suspense>
+      </ErrorBoundary>
+    </div>
   );
 
   const menu = <Menu />;
