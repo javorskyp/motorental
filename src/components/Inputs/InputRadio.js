@@ -1,4 +1,5 @@
 export const InputRadio = props => {
+  const {options, name, value } = props
     return (
       <div className="form-group">
         {props.options.map(option => (
@@ -16,4 +17,9 @@ export const InputRadio = props => {
         ))}
       </div>
     );
+  }
+
+  InputRadio.defaultProps = {
+    type: 'radio',
+    
   }

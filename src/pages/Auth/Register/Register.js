@@ -1,8 +1,8 @@
 import { useState } from "react";
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 import { validate } from '../../../helpers/validations';
-import Input from '../../../components/Input/Input';
 import axios from '../../../axios';
+import { InputText } from "../../../components/Inputs/InputText";
 
 export default function Register(props) {
   const [loading, setLoading] = useState(false);
@@ -60,7 +60,7 @@ export default function Register(props) {
 
         <form onSubmit={submit}>
 
-          <Input
+          <InputText
             label="Email"
             type="email"
             value={form.email.value}
@@ -68,7 +68,7 @@ export default function Register(props) {
             error={form.email.error}
             showError={form.email.showError} />
 
-          <Input
+          <InputText
             label="Hasło"
             type="password"
             value={form.password.value}

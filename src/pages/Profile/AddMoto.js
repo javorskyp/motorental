@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import LoadingButton from '../../components/UI/LoadingButton/LoadingButton';
-import Input from '../../components/Input/Input';
 import { validate } from '../../helpers/validations';
-
+import { InputTextarea } from '../../components/Inputs/InputTextarea'
+import { InputCheckbox } from '../../components/Inputs/InputCheckbox';
+import { InputRadio } from '../../components/Inputs/InputRadio';
+import { InputFile } from '../../components/Inputs/InputFile';
+import { InputText } from '../../components/Inputs/InputText';
+import { InputSelect } from '../../components/Inputs/InputSelect';
 
 const AddMoto = props => {
     const [form, setForm] = useState({
@@ -79,14 +83,14 @@ const AddMoto = props => {
           <p className="text-muted">Opis motocykla</p>
            <form onSubmit={submit}>
   
-            <Input
+            <InputText
               label="Nazwa"
               value={form.name.value}
               onChange={val => changeHandler(val, 'name')}
               error={form.name.error}
               showError={form.name.showError} />
   
-            <Input
+            <InputTextarea
               label="Opis"
               type="textarea"
               value={form.description.value}
@@ -94,14 +98,14 @@ const AddMoto = props => {
               error={form.description.error}
               showError={form.description.showError} />
   
-            <Input
+            <InputText
               label="Miejscowość"
               value={form.city.value}
               onChange={val => changeHandler(val, 'city')}
               error={form.city.error}
               showError={form.city.showError} />
   
-            <Input
+            <InputSelect
               label="Pojemność"
               value={form.capacity.value}
               type="select"
@@ -116,7 +120,7 @@ const AddMoto = props => {
               showError={form.capacity.showError} />
   
             <h4>Wyposażenie</h4>
-            <Input
+            <InputCheckbox
               type="checkbox"
               value={form.features.value}
               onChange={val => changeHandler(val, 'features')}
@@ -134,14 +138,14 @@ const AddMoto = props => {
               showError={form.features.showError} />
   
             <h4>Zdjęcie</h4>
-            <Input 
+            <InputFile
               type="file" 
               onChange={val => changeHandler(val, 'image')}
               error={form.image.error}
               showError={form.image.showError} />
   
             <h4>Status</h4>
-            <Input
+            <InputRadio
               type="radio"
               name="status"
               value={form.status.value}

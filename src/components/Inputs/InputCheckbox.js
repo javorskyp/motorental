@@ -1,6 +1,6 @@
 export const InputCheckbox = props => {
-
-    const changeFeatureHandler = e => {
+      const {options, value  } = props
+      const changeFeatureHandler = e => {
       const value = e.target.value;
       const isChecked = e.target.checked;
   
@@ -30,3 +30,10 @@ export const InputCheckbox = props => {
       </div>
     );
   }
+
+  InputCheckbox.defaultProps = {
+    required: "options",
+    isValid: false,
+    showError: false,
+  }; 
+  

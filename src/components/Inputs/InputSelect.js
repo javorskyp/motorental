@@ -1,4 +1,5 @@
 export const InputSelect = props => {
+    const {label, value, error, showError } = props
     return (
       <div className="form-group">
         <label>{props.label}</label>
@@ -16,3 +17,9 @@ export const InputSelect = props => {
       </div>
     );
   }
+
+  InputSelect.defaultProps = {
+    required: 'options',
+    isValid: false,
+    showError: false,
+  }; 

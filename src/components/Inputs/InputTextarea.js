@@ -1,4 +1,5 @@
 export const InputTextarea = props => {
+    const {label, value, type, error, showError } = props
     return (
       <div className="form-group">
         <label>{props.label}</label>
@@ -13,3 +14,9 @@ export const InputTextarea = props => {
       </div>
     );
   }
+
+  InputTextarea.defaultProps = {
+    type: 'text',
+    isValid: false,
+    showError: false,
+  }; 
