@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import { useHistory } from 'react-router-dom';
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
+import axios from '../../../services/axios-auth';
 
 export default function Login(props) {
   const [auth, setAuth] = useAuth();
@@ -18,7 +19,7 @@ export default function Login(props) {
     setLoading(true)
 
 try {
-  const res = await axios.post('', {
+  const res = await axios.post('accounts:signInWithPassword', {
     email,
     password,
     returnSecureToken: true,
@@ -31,8 +32,8 @@ try {
    history.push('/');
   } catch (ex) {
     setError(ex.response.data.error.message);
-    setLoading(false);
     console.log(ex.response)
+    setLoading(false);
   }
 }
   if (auth) {
@@ -57,7 +58,7 @@ try {
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="form-control" />
         </div>
         {error ? (<div className="aler alert-danger">{error}</div>): null}
-        <LoadingButton Loading={loading} label="Zaloguj"/>
+        <LoadingButton loading={loading} label="Zaloguj"/>
       </form>
       </div>
     );

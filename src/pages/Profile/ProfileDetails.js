@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import LoadingButton from '../../components/UI/LoadingButton/LoadingButton';
 import { validateEmail } from '../../helpers/validations';
+import useAuth from '../../hooks/useAuth';
 
 export default function ProfileDetails(props) {
-
-  const [email, setEmail] = useState('javorskyp@gmail.com');
+  const [auth] = useAuth();
+  const [email, setEmail] = useState(auth.email);
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
@@ -25,8 +26,6 @@ export default function ProfileDetails(props) {
     }, 500);
 
   }
-
-
 
   useEffect(() => {
     if (validateEmail(email)) {
@@ -65,7 +64,9 @@ export default function ProfileDetails(props) {
           {errors.password}
         </div>
       </div>
-      <LoadingButton Loading={loading} disabled={buttonDisabled} label="Zapisz"/>
+      <LoadingButton 
+          loading={loading} 
+          disabled={buttonDisabled}>Zapisz</LoadingButton>
     </form>
       );
     }

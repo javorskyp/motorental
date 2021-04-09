@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 import { validate } from '../../../helpers/validations';
-import axios from 'axios';
+import axios from '../../../services/axios-auth';
 import { InputText } from "../../../components/Inputs/InputText";
 import useAuth from '../../../hooks/useAuth';
 import { useHistory } from 'react-router-dom'
@@ -34,16 +34,25 @@ export default function Register(props) {
     e.preventDefault();
     setLoading(true);
 
-    const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[AIzaSyDTk6knBjnCpxswc9N1LL4YnfGHp_194yA]', {
+    try {
+    const res = await axios.post('accounts:signUp', {
       email: form.email.value,
       password: form.password.value,
       returnSecureToken: true
     });
-    console.log(res.data)
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+     setAuth({
+        email: res.data.email,
+        token: res.data.idToken,
+        userId: res.data.localId,
+      });
+      history.push('/');
+    } catch (ex) {
+      setError(ex.response.data.error.message);
+      console.log(ex.response);
+    }
+
+    setLoading(false);
   }
 
   const changeHandler = (value, fieldName) => {
@@ -86,7 +95,7 @@ export default function Register(props) {
             showError={form.password.showError} />
 
           <div className="text-left">
-            <LoadingButton Loading={loading} disabled={!valid} className="btn-success" label="Zarejestruj"/>
+            <LoadingButton loading={loading} disabled={!valid} className="btn-success" label="Zarejestruj"/>
           </div>
 
         </form>
