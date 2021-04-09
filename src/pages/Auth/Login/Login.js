@@ -11,24 +11,34 @@ export default function Login(props) {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [valid, setValid ] = useState(null);
+  const [error, setError] = useState('');
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     setLoading(true)
 
-    setTimeout(() => {
-      //logowaanie
-    if (true) {
-      setAuth(true);
-      history.push('/'); 
-    } else {
-      setValid(false);
-      setPassword('');
-    }
+try {
+  const res = await axios.post('', {
+    email,
+    password,
+    returnSecureToken: true,
+  });
+   setAuth({
+     email: res.data.email,
+     token: res.data.token,
+     userId: res.data.localId,
+   });
+   history.push('/');
+  } catch (ex) {
+    setError(ex.response.data.error.message);
     setLoading(false);
-    }, 500);
-
+    console.log(ex.response)
   }
+}
+  if (auth) {
+    history.push('/')
+  }
+
     return (
       <div>
         <h2>Logowanie</h2>
@@ -46,6 +56,7 @@ export default function Login(props) {
           <label>Hasło</label>
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="form-control" />
         </div>
+        {error ? (<div className="aler alert-danger">{error}</div>): null}
         <LoadingButton Loading={loading} label="Zaloguj"/>
       </form>
       </div>

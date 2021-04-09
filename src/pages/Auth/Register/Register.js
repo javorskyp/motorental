@@ -3,8 +3,12 @@ import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 import { validate } from '../../../helpers/validations';
 import axios from 'axios';
 import { InputText } from "../../../components/Inputs/InputText";
+import useAuth from '../../../hooks/useAuth';
+import { useHistory } from 'react-router-dom'
 
 export default function Register(props) {
+  const history = useHistory();
+  const [auth, setAuth] = useAuth();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     email: {
@@ -20,6 +24,7 @@ export default function Register(props) {
       rules: ['required']
     },
   });
+  const [error, setError] = useState('');
   const valid = !Object.values(form)
                     .map(input => input.error)
                     .filter(error => error)
