@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 export const InputFile = props => {
+    const { onChange } = props;
     const fileRef = useRef();
     const changeHandler = (e) => {
-      props.onChange(e.target.files[0]);
+      onChange(e.target.files[0]);
     }
   
     return (

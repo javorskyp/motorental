@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 import { validate } from '../../../helpers/validations';
-import axios from '../../../axios';
+import axios from 'axios';
 import { InputText } from "../../../components/Inputs/InputText";
 
 export default function Register(props) {
@@ -29,8 +29,12 @@ export default function Register(props) {
     e.preventDefault();
     setLoading(true);
 
-    const res = await axios.post('users.json');
- 
+    const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[AIzaSyDTk6knBjnCpxswc9N1LL4YnfGHp_194yA]', {
+      email: form.email.value,
+      password: form.password.value,
+      returnSecureToken: true
+    });
+    console.log(res.data)
 
     setTimeout(() => {
       setLoading(false);
@@ -77,7 +81,7 @@ export default function Register(props) {
             showError={form.password.showError} />
 
           <div className="text-left">
-            <LoadingButton loading={loading} disabled={!valid} className="btn-success" label="Zarejestruj"/>
+            <LoadingButton Loading={loading} disabled={!valid} className="btn-success" label="Zarejestruj"/>
           </div>
 
         </form>

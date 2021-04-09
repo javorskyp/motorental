@@ -2,14 +2,14 @@ export const InputText = props => {
     const {label, value, type, error, showError } = props
     return (
       <div className="form-group">
-        <label>{props.label}</label>
+        <label>{label}</label>
         <input 
-          value={props.value}
+          value={value}
           onChange={e => props.onChange(e.target.value)}
-          type={props.type} 
-          className={`form-control ${props.error && props.showError ? 'is-invalid' : ''}`} />
+          type={type} 
+          className={`form-control ${error && showError ? 'is-invalid' : ''}`} />
         <div className="invalid-feedback">
-          {props.error}
+          {error}
         </div>
       </div>
     );
@@ -17,6 +17,5 @@ export const InputText = props => {
 
   InputText.defaultProps = {
     type: 'text',
-    isValid: false,
     showError: false,
   }; 
