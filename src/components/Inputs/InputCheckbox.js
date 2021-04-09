@@ -5,10 +5,10 @@ export const InputCheckbox = props => {
       const isChecked = e.target.checked;
   
       if (isChecked) {
-        const newValue = [...props.value, value];
+        const newValue = [...value, value];
         onChange(newValue);
       } else {
-        const newValue = props.value.filter(x => x !== value);
+        const newValue = value.filter(x => x !== value);
         onChange(newValue);
       }
     }

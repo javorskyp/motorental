@@ -11,7 +11,7 @@ export const InputFile = props => {
         <input 
           type="file" 
           onChange={changeHandler}
-          ref={props.fileRef} />
+          ref={fileRef} />
       </div>
     );
   }

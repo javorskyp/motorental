@@ -10,7 +10,7 @@ export const InputRadio = props => {
               name={name}
               value={option.value}
               onChange={e => props.onChange(e.target.value)}
-              checked={props.value === option.value}
+              checked={value === option.value}
               className="custom-control-input" />
             <label className="custom-control-label" htmlFor={`radio-${value}-${name}`}>{label}</label>
           </div>
