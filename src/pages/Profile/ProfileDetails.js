@@ -36,10 +36,10 @@ export default function ProfileDetails(props) {
   }, [email]);
 
   useEffect(() => {
-    if (password.lenght >= 4 || !password) {
+    if (password.length >= 4 || !password) {
       setErrors({...errors, password: ''});
     } else {
-      setErrors({...errors, password: 'Niepoprawne hasło'});
+      setErrors({...errors, password: 'Wymagane 4 znaki'});
     }
   }, [password]);
 

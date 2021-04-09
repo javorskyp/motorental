@@ -68,14 +68,15 @@ export default function Register(props) {
         } 
       });
   }
+  if (auth) {
+    history.push('/')
+  }
 
   return (
     <div className="card">
       <div className="card-header">Rejestracja</div>
       <div className="card-body">
-        
         <p className="text-muted">Uzupełnij dane</p>
-
         <form onSubmit={submit}>
 
           <InputText
@@ -93,6 +94,10 @@ export default function Register(props) {
             onChange={val => changeHandler(val, 'password')}
             error={form.password.error}
             showError={form.password.showError} />
+
+          {error ? (
+            <div className="alert alert-danger">{error}</div>
+          ) : null}
 
           <div className="text-left">
             <LoadingButton loading={loading} disabled={!valid} className="btn-success" label="Zarejestruj"/>
