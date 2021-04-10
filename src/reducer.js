@@ -1,18 +1,18 @@
 export const reducer = (state, action) => {
     switch (action.type) {
       case 'change-theme':
-        const theme = state.theme === 'primary' ? 'danger' : 'primary'
-        return {...state,theme};
+        const theme = state.theme === 'primary' ? 'danger' : 'primary';
+        return {...state, theme };
         case 'login':
-            return {...state, isAuthenticated: true};
+            return {...state, user: action.user };
         case 'logout':
-              return {...state, isAuthenticated: false};
+              return {...state, user: null };
       default:
-        throw new Error ('no action' + action.tyope)
+        throw new Error ('No action' + action.tyope)
     }
   }
 
   export const initialState = {
-    isAuthenticated: false,
-    theme: 'primary'
+    user: JSON.parse(window.localStorage.getItem('token-data')) ?? null,
+    theme: 'danger'
   }

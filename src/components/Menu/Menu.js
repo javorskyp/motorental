@@ -5,10 +5,6 @@ import { NavLink } from 'react-router-dom';
 function Menu() {
   const [auth, setAuth] = useAuth();
 
-  const login = (e) => {
-    e.preventDefault();
-    setAuth(true);
-  }
   const logout = (e) => {
     e.preventDefault();
     setAuth(false);
@@ -41,7 +37,9 @@ function Menu() {
                 </NavLink>
               </li>
               <li className={style.menuItem}>
-                <a href="#" onClick={login}>Zaloguj</a>
+              <NavLink activeClassName={style.menuItemActive} to="/zaloguj">
+                  Zaloguj
+                </NavLink>
               </li>
             </>
           )

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 import { validate } from '../../../helpers/validations';
-import axios from 'axios';
+import axios from '../../../services/axios-auth';
 import { InputText } from "../../../components/Inputs/InputText";
+import useAuth from '../../../hooks/useAuth';
+import { useHistory } from 'react-router-dom'
 
 export default function Register(props) {
+  const history = useHistory();
+  const [auth, setAuth] = useAuth();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     email: {
@@ -20,6 +24,7 @@ export default function Register(props) {
       rules: ['required']
     },
   });
+  const [error, setError] = useState('');
   const valid = !Object.values(form)
                     .map(input => input.error)
                     .filter(error => error)
@@ -29,16 +34,25 @@ export default function Register(props) {
     e.preventDefault();
     setLoading(true);
 
-    const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[AIzaSyDTk6knBjnCpxswc9N1LL4YnfGHp_194yA]', {
+    try {
+    const res = await axios.post('accounts:signUp', {
       email: form.email.value,
       password: form.password.value,
       returnSecureToken: true
     });
-    console.log(res.data)
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+     setAuth({
+        email: res.data.email,
+        token: res.data.idToken,
+        userId: res.data.localId,
+      });
+      history.push('/');
+    } catch (ex) {
+      setError(ex.response.data.error.message);
+      console.log(ex.response);
+    }
+
+    setLoading(false);
   }
 
   const changeHandler = (value, fieldName) => {
@@ -54,14 +68,15 @@ export default function Register(props) {
         } 
       });
   }
+  if (auth) {
+    history.push('/')
+  }
 
   return (
     <div className="card">
       <div className="card-header">Rejestracja</div>
       <div className="card-body">
-        
         <p className="text-muted">Uzupełnij dane</p>
-
         <form onSubmit={submit}>
 
           <InputText
@@ -80,8 +95,12 @@ export default function Register(props) {
             error={form.password.error}
             showError={form.password.showError} />
 
+          {error ? (
+            <div className="alert alert-danger">{error}</div>
+          ) : null}
+
           <div className="text-left">
-            <LoadingButton Loading={loading} disabled={!valid} className="btn-success" label="Zarejestruj"/>
+            <LoadingButton loading={loading} disabled={!valid} className="btn-success" label="Zarejestruj"/>
           </div>
 
         </form>
