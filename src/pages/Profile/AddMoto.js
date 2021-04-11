@@ -7,8 +7,13 @@ import { InputRadio } from '../../components/Inputs/InputRadio';
 import { InputFile } from '../../components/Inputs/InputFile';
 import { InputText } from '../../components/Inputs/InputText';
 import { InputSelect } from '../../components/Inputs/InputSelect';
+import axios from '../../axios';
+import { useHistory } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const AddMoto = props => {
+    const auth = [useAuth]
+    const history = useHistory();
     const [form, setForm] = useState({
       name: {
         value: '',
@@ -53,13 +58,25 @@ const AddMoto = props => {
     });
     const [loading, setLoading] = useState(false);
   
-    const submit = e => {
+    const submit = async e => {
       e.preventDefault();
       setLoading(true);
   
-      setTimeout(() => {
+      try {
+         await axios.post('/motorcycles.json', {
+          name: form.name.value,
+          description: form.description.value,
+          city: form.city.value,
+          capacity: form.capacity.value,
+          features: form.features.value,
+          status: form.status.value,
+          user_id: auth.user_id
+        });
+        history.push('/profile/motorcycles');
+      } catch (ex) {
+        console.log(ex.response)
+      }
         setLoading(false);
-      }, 500);
     }
   
     const changeHandler = (value, fieldName) => {
