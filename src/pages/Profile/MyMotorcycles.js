@@ -19,6 +19,14 @@ export default function MyMotorcycles(props) {
       console.log(ex.response);
     }
   }
+  const deleteHandler = async id => {
+    try {
+      await axios.delete(`/motorcycles/${id}.json`);
+      setMotorcycles(motorcycles.filter(x => x.id !== id));
+    } catch (ex) {
+      console.log(ex.response);
+    }
+  }
 
     useEffect(() => {
       fetchMotorcycles();
@@ -46,7 +54,7 @@ export default function MyMotorcycles(props) {
                 </td>
                 <td>
                   <Link to={`/profil/motorcycles/edit/${motorcycle.id}`} className="btn btn-warning">Edytuj</Link>
-                  <button className="ml-2 btn btn-danger">Usuń</button>
+                  <button onClick={() => deleteHandler(motorcycle.id)} className="ml-2 btn btn-danger">Usuń</button>
                 </td>
               </tr>
             ))}
