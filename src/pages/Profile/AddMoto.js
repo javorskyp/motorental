@@ -70,7 +70,7 @@ const AddMoto = props => {
           capacity: form.capacity.value,
           features: form.features.value,
           status: form.status.value,
-          user_id: auth.user_id
+          user_Id: auth.user_Id
         });
         history.push('/profile/motorcycles');
       } catch (ex) {
