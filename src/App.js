@@ -20,6 +20,7 @@ import Register from './pages/Auth/Register/Register';
 import AuthenticateRoute from './hoc/AuthenticatedRoute';
 import ErrorBoundary from './hoc/ErrorBoundary';
 import AddMoto from './pages/Profile/AddMoto';
+import EditMoto from './pages/Profile/EditMoto';
 
 const Profile = lazy(() => import('./pages/Profile/Profile'));
 
@@ -39,6 +40,7 @@ function App() {
       <ErrorBoundary>
         <Suspense fallback={<p>Ładowanie...</p>}>
         <Switch>
+          <AuthenticateRoute path="/profil/motorcycles/edit/:id" component={EditMoto}/>
           <AuthenticateRoute path="/profil/motorcycles/add" component={AddMoto}/>
           <AuthenticateRoute path="/profil" component={Profile}/>
           <Route path="/motorcycles/:id" component={Moto}/>

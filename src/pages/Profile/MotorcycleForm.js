@@ -1,4 +1,9 @@
-import Input from '../../components/Inputs/InputText';
+import { InputText } from '../../components/Inputs/InputText';
+import { InputCheckbox } from '../../components/Inputs/InputCheckbox';
+import { InputSelect } from '../../components/Inputs/InputSelect';
+import { InputRadio } from '../../components/Inputs/InputRadio';
+import { InputTextarea } from '../../components/Inputs/InputTextarea';
+import { InputFile } from '../../components/Inputs/InputFile';
 import { validate } from '../../helpers/validations';
 import useAuth from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
