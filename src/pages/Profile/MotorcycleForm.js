@@ -54,6 +54,12 @@ const MotorcycleForm = props => {
         showError: false,
         rules: ['required']
       },
+      rating: {
+        value: 0,
+        error: '',
+        showError: false,
+        rules: []
+      }
     });
 
       
