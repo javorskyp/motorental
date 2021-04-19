@@ -39,7 +39,7 @@ function Searchbar(props) {
         placeholder="Szukaj..." />
         <button
           onClick={search}
-          className={`ml-1 btn btn-${theme.color}`}>
+          className={`ml-2 btn btn-${theme.color}`}>
             Szukaj
         </button>
     </div>

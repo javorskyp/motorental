@@ -85,7 +85,7 @@ export default function ProfileDetails(props) {
         </div>
       </div>
       <LoadingButton 
-          loading={loading} 
+          loading={loading}  
           disabled={buttonDisabled}>Zapisz</LoadingButton>
     </form>
       );
