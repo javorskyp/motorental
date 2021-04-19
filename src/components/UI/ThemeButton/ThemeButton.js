@@ -4,6 +4,7 @@ import ThemeContext from '../../../context/themeContext';
 const buttonStyles = {
   color: '#fff',
   border: 0,
+  margin: 10,
   backgroundColor: 'transparent'
 }
 

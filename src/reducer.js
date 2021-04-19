@@ -14,5 +14,5 @@ export const reducer = (state, action) => {
 
   export const initialState = {
     user: JSON.parse(window.localStorage.getItem('token-data')) ?? null,
-    theme: 'danger'
+    theme: 'primary'
   }
