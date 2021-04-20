@@ -9,16 +9,6 @@ export default function MyMotorcycles(props) {
   const {url} = useRouteMatch();
   const [motorcycles, setMotorcycles] = useState([])
 
-  const fetchMotorcycles = async () => {
-    try {
-      const res = await axios.get('/motorcycles.json');
-      const newMotorcycles = objectToArrayWithId(res.data)
-                    .filter(motorcycle =>motorcycle.user_id === auth.userId);
-      setMotorcycles(newMotorcycles);
-    } catch (ex) {
-      console.log(ex.response);
-    }
-  }
   const deleteHandler = async id => {
     try {
       await axios.delete(`/motorcycles/${id}.json`);
@@ -29,8 +19,18 @@ export default function MyMotorcycles(props) {
   }
 
     useEffect(() => {
+      const fetchMotorcycles = async () => {
+        try {
+          const res = await axios.get('/motorcycles.json');
+          const newMotorcycles = objectToArrayWithId(res.data)
+                        .filter(motorcycle =>motorcycle.user_id === auth.userId);
+          setMotorcycles(newMotorcycles);
+        } catch (ex) {
+          console.log(ex.response);
+        }
+      }
       fetchMotorcycles();
-    }, []);
+    }, [auth.userId]);
   
 
     return (
@@ -38,16 +38,18 @@ export default function MyMotorcycles(props) {
       {motorcycles ? (
         <table className="table">
           <thead>
-            <th>Nazwa</th>
-            <th>Status</th>
-            <th>Wyposażenie</th>
+            <tr key={motorcycles.id}>
+              <th>Nazwa</th>
+              <th>Status</th>
+              <th>Wyposażenie</th>
+            </tr>
           </thead>
           <tbody>
             {motorcycles.map(motorcycle => (
               <tr>
                 <td>{motorcycle.name}</td>
                 <td>
-                  {motorcycle.status === 1
+                  {parseInt(motorcycle.status) === 1
                     ? <span className="badge bg-success text-light">aktywny</span>
                     : <span className="badge bg-secondary text-light">ukryty</span>
                   }

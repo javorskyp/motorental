@@ -52,7 +52,6 @@ function Moto(props) {
               className="img-fluid img-thumbnail mb-4" />
     
             <p>Miejscowość: <b>{moto.city}</b></p>
-            <p>Miejsca: <b>{moto.rooms}</b></p>
             <p className="lead">{moto.description}</p>
             <p>Wyposażenie:</p>
             <ul>
