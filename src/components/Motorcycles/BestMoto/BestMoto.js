@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
@@ -7,21 +7,20 @@ const BestMoto = (props) => {
 
     const motorcycle = props.getMotorcycle();
     const endTime = moment().add(43, 'minutes').add(54, 'seconds'); 
-    let interval = null;
+    let interval = useRef(null)
 
     useEffect(() => {
-        interval = setInterval(() => {
+        interval.current = setInterval(() => {
           const leftTime = -moment().diff(endTime) / 1000;
           const minutes = Math.floor(leftTime / 60);
           const seconds = Math.floor(leftTime % 60);
           setTime(`minut: ${minutes}, sekund: ${seconds}`);
         }, 1000);
     
-        // componentWillUnmount()
         return () => {
-          clearInterval(interval);
+          clearInterval(interval.current);
         }
-      }, []);
+      }, [endTime]);
 
     return (
         <div className="card bg-success text-white">
