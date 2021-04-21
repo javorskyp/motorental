@@ -18,14 +18,14 @@ export default function ProfileDetails(props) {
 
   const submit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     try {
       const data = {
         idToken: auth.token,
         email: email,
-        returnSecureToken: true,
-      }
+        returnSecureToken: true
+      };
       if (password) {
         data.password = password;
       }
@@ -34,9 +34,9 @@ export default function ProfileDetails(props) {
 
       setAuth({
         email: res.data.email,
-        token: res.data.token,
+        token: res.data.idToken,
         userId: res.data.localId,
-      })
+      });
 
       setSuccess(true);
     } catch (ex) {
@@ -62,8 +62,6 @@ export default function ProfileDetails(props) {
     }
   }, [password]);
 
- 
-
     return (
       <form onSubmit={submit}>
         {success ? (<div className="alert alert-success">Dane zostały zapisane</div>): null}
@@ -84,8 +82,8 @@ export default function ProfileDetails(props) {
           {errors.password}
         </div>
       </div>
-      <LoadingButton 
-          loading={loading}  
+      <LoadingButton
+          loading={loading}
           disabled={buttonDisabled}>Zapisz</LoadingButton>
     </form>
       );

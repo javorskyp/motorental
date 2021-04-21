@@ -19,7 +19,9 @@ function Motorcycle(props) {
 
   const clickHandler = e => {
     //e.preventDefault();
-    props.onOpen(props);
+    if (props.onOpen) {
+      props.onOpen(props);
+    }
   }
 
   return (
@@ -39,7 +41,7 @@ function Motorcycle(props) {
                 <span className="badge badge-light">{props.city}</span>
               </div>
               <div className="col text-right">
-                <h5>Ocena: {props.rating}</h5>
+                <h5>Ocena: {props.rating ?? 0}</h5>
                   <Link 
                     onClick={clickHandler}
                     to={`/motorcycles/${props.id}`}

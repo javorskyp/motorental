@@ -183,7 +183,7 @@ const MotorcycleForm = props => {
           showError={form.status.showError} />
 
         <div className="text-center">
-          <LoadingButton loading={loading} className="btn-success" label="Dodaj motocykl"/>
+          <LoadingButton loading={loading} className="btn-success">{props.buttonText}!</LoadingButton>
         </div>
       </form>
     );

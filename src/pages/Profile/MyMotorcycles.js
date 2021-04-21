@@ -23,7 +23,7 @@ export default function MyMotorcycles(props) {
         try {
           const res = await axios.get('/motorcycles.json');
           const newMotorcycles = objectToArrayWithId(res.data)
-                        .filter(motorcycle =>motorcycle.user_id === auth.userId);
+                        .filter(motorcycle =>motorcycle.userId === auth.userId);
           setMotorcycles(newMotorcycles);
         } catch (ex) {
           console.log(ex.response);

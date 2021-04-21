@@ -58,7 +58,7 @@ try {
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="form-control" />
         </div>
         {error ? (<div className="aler alert-danger">{error}</div>): null}
-        <LoadingButton loading={loading} label="Zaloguj"/>
+        <LoadingButton loading={loading}>Zaloguj</LoadingButton>
       </form>
       </div>
     );
