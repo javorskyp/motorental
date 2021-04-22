@@ -100,7 +100,7 @@ export default function Register(props) {
           ) : null}
 
           <div className="text-left">
-            <LoadingButton loading={loading} disabled={!valid} className="btn-success" label="Zarejestruj"/>
+            <LoadingButton loading={loading} disabled={!valid} className="btn-success">Zarejestruj</LoadingButton>
           </div>
 
         </form>

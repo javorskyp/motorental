@@ -47,7 +47,7 @@ function App() {
           <Route path="/wyszukaj/:term?" component={Search}/>
           <Route path="/zaloguj" component={Login} />
           <Route path="/rejstracja" component={Register} />
-          <Route path="/" component={Home}/>
+          <Route path="/" exact component={Home}/>
           <Route component={NotFound}/>
          </Switch>
         </Suspense>
