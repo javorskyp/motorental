@@ -20,10 +20,10 @@ test('renders Logowanie', () => {
 
 test('changes email value', () => {
   const utils = render(<Login />);
-  const emialInput = utils.getByLabelText('Email');
+  const emailInput = utils.getByLabelText('Email');
 
-  fireEvent.change(emialInput, { target: { value: 'javorskyp'} });
-  expect(emialInput.value).toBe('javorskyp');
+  fireEvent.change(emailInput, { target: { value: 'javorskyp'} });
+  expect(emailInput.value).toBe('javorskyp');
 });
 
 test('show error on fail login', async () => {
