@@ -4,7 +4,7 @@ import MotorcycleForm from './MotorcycleForm';
 import useAuth from '../../hooks/useAuth';
 
 const AddMoto = props => {
-  const [auth] = [useAuth]
+  const [auth] = useAuth();
   const history = useHistory();
     
   const submit = async form => {
