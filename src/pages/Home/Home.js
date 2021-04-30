@@ -5,50 +5,15 @@ import useStateStorage from '../../hooks/useStateStorage';
 import useWebsiteTitle from '../../hooks/useWebsiteTitle';
 import Motorcycles from '../../components/Motorcycles/Motorcycles';
 import LoadingIcon from '../../components/UI/LoadingIcon/LoadingIcon';
-
-const backendMotorcycles = [
-    {
-      id: 1,
-      name: 'Gsxr 1000',
-      city: 'Warszawa',
-      rating: 8.3,
-      description: 'Rok 2021 pojemność 999,7 201KM 199kg',
-      image: '' 
-    },
-
-    {
-      id: 2,
-      name: 'Zx10r',
-      city: 'Wrocław',
-      rating: 9.2,
-      description: 'Rok 2021 pojemność 999,8 201KM 211kg',
-      image: ''
-    },
-
-    {
-      id: 3,
-      name: 'Yamaha R1',
-      city: 'Lublin',
-      rating: 8.8,
-      description: 'Rok 2021 pojemność 998,2 199KM 208kg',
-      image: ''
-    },
-    {
-      id: 4,
-      name: 'CBR 1000RR',
-      city: 'Rzeszów',
-      rating: 8.1,
-      description: 'Rok 2021 pojemność 998,4 205KM 203kg',
-      image: ''
-    }
-  ];
+import axios from '../../axios';
+import { objectToArrayWithId } from '../../helpers/objectsMoto';
 
 export default function Home(props) {
     useWebsiteTitle('Strona główna');
     const [lastMoto, setLastMoto] = useStateStorage('last-moto', null);
 
     const [loading, setLoading] = useState(true);
-    const [motorcycles, setMotorcycles] = useState([])
+    const [motorcycles, setMotorcycles] = useState([]);
 
     const getBestMoto = () => {
         if(motorcycles.length < 2) {
@@ -60,12 +25,18 @@ export default function Home(props) {
     
     const openMotorcycle = (motorcycle) => setLastMoto(motorcycle);
     const removeLastMoto = () => setLastMoto(null);
+    const fetchMotorcycles = async () => {
+      try {
+        const res = await axios.get('/motorcycles.json');
+        const newMotorcycles = objectToArrayWithId(res.data).filter(motorcycle => motorcycle.status === 1);
+        setMotorcycles(newMotorcycles);
+      } catch (ex) {
+        console.log(ex.response);
+      } setLoading(false);
+    }
 
     useEffect(() => {
-        setTimeout(() => {
-            setMotorcycles(backendMotorcycles);
-            setLoading(false);
-      }, 1000);
+       fetchMotorcycles();
     }, []);
     
     return loading ? <LoadingIcon/> : (
