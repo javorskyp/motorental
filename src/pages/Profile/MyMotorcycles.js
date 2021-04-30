@@ -7,7 +7,7 @@ import useAuth from '../../hooks/useAuth';
 export default function MyMotorcycles(props) {
   const [auth] = useAuth();
   const {url} = useRouteMatch();
-  const [motorcycles, setMotorcycles] = useState([])
+  const [motorcycles, setMotorcycles] = useState([]);
 
   const deleteHandler = async id => {
     try {
@@ -38,7 +38,7 @@ export default function MyMotorcycles(props) {
       {motorcycles ? (
         <table className="table">
           <thead>
-            <tr key={motorcycles.id}>
+            <tr>
               <th>Nazwa</th>
               <th>Status</th>
               <th>Wyposażenie</th>
@@ -46,7 +46,7 @@ export default function MyMotorcycles(props) {
           </thead>
           <tbody>
             {motorcycles.map(motorcycle => (
-              <tr>
+              <tr key={motorcycle.id}>
                 <td>{motorcycle.name}</td>
                 <td>
                   {parseInt(motorcycle.status) === 1
