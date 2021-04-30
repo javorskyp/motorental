@@ -26,7 +26,7 @@ function Menu() {
                 </NavLink>
             </li>
             <li className={style.menuItem}>
-              <a href="#" onClick={logout}>Wyloguj</a>
+              <a href="/#" onClick={logout}>Wyloguj</a>
             </li>
             </>
           ) : (
