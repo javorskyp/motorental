@@ -98,9 +98,10 @@ const MotorcycleForm = props => {
         }
 
         useEffect(() => {
+          const { motorcycle } = props;
             const newForm = {...form};
-            for (const key in props.motorcycle) {
-              newForm[key].value = props.motorcycle[key];
+            for (const key in motorcycle) {
+              newForm[key].value = motorcycle[key];
             }
             setForm(newForm);
           }, [props.motorcycle]);
