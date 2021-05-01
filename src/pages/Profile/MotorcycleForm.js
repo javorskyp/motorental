@@ -11,7 +11,7 @@ import LoadingButton from '../../components/UI/LoadingButton/LoadingButton';
 
 
 const MotorcycleForm = props => {
-    const auth = [useAuth]
+    const auth = useAuth();
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
       name: {
@@ -99,7 +99,7 @@ const MotorcycleForm = props => {
 
         useEffect(() => {
           const { motorcycle } = props;
-            const newForm = {...form};
+            const newForm = {...form, ...motorcycle};
             for (const key in motorcycle) {
               newForm[key].value = motorcycle[key];
             }
