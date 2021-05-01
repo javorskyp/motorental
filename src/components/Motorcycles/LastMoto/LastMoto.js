@@ -15,7 +15,7 @@ function LastMoto(props) {
           <div 
             style={{width: '100px'}} 
             className="ml-auto d-flex justify-content-between">
-            <Link to={`/motocykle/${props.id}`} className="btn btn-sm btn-dark">
+            <Link to={`/motorcycles/${props.id}`} className="btn btn-sm btn-dark">
               Tak!
             </Link>
             <button onClick={props.onRemove} className="btn btn-sm btn-dark">
