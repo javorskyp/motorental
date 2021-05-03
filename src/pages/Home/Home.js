@@ -28,7 +28,7 @@ export default function Home(props) {
     const fetchMotorcycles = async () => {
       try {
         const res = await axios.get('/motorcycles.json');
-        const newMotorcycles = objectToArrayWithId(res.data).filter(motorcycle => motorcycle.status == 1);
+        const newMotorcycles = objectToArrayWithId(res.data).filter(motorcycle => motorcycle.status === '1');
         setMotorcycles(newMotorcycles);
       } catch (ex) {
         console.log(ex.response);
