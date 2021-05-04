@@ -7,6 +7,7 @@ import Motorcycles from '../../components/Motorcycles/Motorcycles';
 import LoadingIcon from '../../components/UI/LoadingIcon/LoadingIcon';
 import axios from '../../axios';
 import { objectToArrayWithId } from '../../helpers/objectsMoto';
+import { MotorcycleStatus } from '../../pages/Profile/MotorcycleStatus';
 
 export default function Home(props) {
     useWebsiteTitle('Strona główna');
@@ -28,7 +29,7 @@ export default function Home(props) {
     const fetchMotorcycles = async () => {
       try {
         const res = await axios.get('/motorcycles.json');
-        const newMotorcycles = objectToArrayWithId(res.data).filter(motorcycle => motorcycle.status === '1');
+        const newMotorcycles = objectToArrayWithId(res.data).filter(motorcycle => MotorcycleStatus.Rented);
         setMotorcycles(newMotorcycles);
       } catch (ex) {
         console.log(ex.response);
