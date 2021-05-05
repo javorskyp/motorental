@@ -11,7 +11,7 @@ export default function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [valid, setValid ] = useState(null);
+  const [valid] = useState(null);
   const [error, setError] = useState('');
 
   const submit = async (e) => {

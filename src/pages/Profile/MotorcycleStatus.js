@@ -1,0 +1,1 @@
+export const MotorcycleStatus = { Rented: '1', Broken: '2', InService: '3' }

@@ -33,7 +33,7 @@ const BestMoto = (props) => {
                     <p>Ocena: {motorcycle.rating}</p>
                 </div>
                 <p>Do końca oferty pozostało: {time}</p>
-                <Link to={`/motocykle/${motorcycle.id}`} className="btn btn-sm btn-light">
+                <Link to={`/motorcycles/${motorcycle.id}`} className="btn btn-sm btn-light">
                     Pokaż
                 </Link>
             </div>
