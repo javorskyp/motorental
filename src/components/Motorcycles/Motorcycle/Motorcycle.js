@@ -56,7 +56,10 @@ function Motorcycle(props) {
             <p className={styles.description}>
               {props.description}
             </p>
-            <p className="mt-2">{ auth ? 'Dostępność: 2 motocykle' : 'Dostępność: Zaloguj' }</p>
+            {auth 
+              ? <p className="mt-2">Dostępność: {props.motorcycle} motocykle</p>
+              : <p className="mt-2">Dostępność: zaloguj</p>
+            }
           </div>
         </div>
       </div>
