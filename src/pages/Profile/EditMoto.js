@@ -32,7 +32,7 @@ const EditMoto = props => {
 
   return (
     <div className="card">
-      <div className="card-header">Edytuj motorcykl</div>
+      <div className="card-header">Edytuj motocykl</div>
       <div className="card-body">
         
         <p className="text-muted">Uzupełnij dane motocykla</p>
