@@ -8,64 +8,52 @@ export default function MyMotorcycles(props) {
   const [auth] = useAuth();
   const {url} = useRouteMatch();
   const [motorcycles, setMotorcycles] = useState([]);
-
-  const deleteHandler = async id => {
-    try {
-      await axios.delete(`/motorcycles/${id}.json`);
-      setMotorcycles(motorcycles.filter(x => x.id !== id));
-    } catch (ex) {
-      console.log(ex.response);
-    }
-  }
-
-    useEffect(() => {
-      const fetchMotorcycles = async () => {
-        try {
-          const res = await axios.get('/motorcycles.json');
-          const newMotorcycles = objectToArrayWithId(res.data)
-                        .filter(motorcycle => motorcycle.userId === auth.userId);
-          setMotorcycles(newMotorcycles);
-        } catch (ex) {
-          console.log(ex.response);
-        }
-      }
-      fetchMotorcycles();
-    }, [auth.userId]);
   
 
-    return (
-    <div>
-      {motorcycles ? (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Nazwa</th>
-              <th>Status</th>
-              <th>Wyposażenie</th>
-            </tr>
-          </thead>
-          <tbody>
-            {motorcycles.map(motorcycle => (
-              <tr key={motorcycle.id}>
-                <td>{motorcycle.name}</td>
-                <td>
-                  {parseInt(motorcycle.status) === 1
-                    ? <span className="badge bg-success text-light">aktywny</span>
-                    : <span className="badge bg-secondary text-light">ukryty</span>
-                  }
-                </td>
-                <td>
-                  <Link to={`/profil/motorcycles/edit/${motorcycle.id}`} className="btn btn-warning">Edytuj</Link>
-                  <button onClick={() => deleteHandler(motorcycle.id)} className="ml-2 btn btn-danger">Usuń</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>Nie masz jeszcze żadnego motocykla.</p>
-      )}
-        <Link to={`${url}/add`} className="btn btn-primary">Dodaj motocykl</Link>
+  const fetchMotorcycles = async () => {
+      try {
+
+        const res = {
+          'kfkdkdkdkd': {
+            name: 'Ducati'
+          }
+        };
+          const newMotorcycle = [];
+          for (const key in res ){
+            newMotorcycle.push({...res, id:key});
+          }
+        } catch (ex) {console.log(ex.response)
+        }
+        }
+
+        useEffect(() => {
+        fetchMotorcycles();
+      }, []);
+
+      return (
+        <div>
+          {motorcycles ? (
+            <table className="table">
+              <thead>
+                <th>nazwa</th>
+                <th>opcja</th>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                  <td>ddd</td>
+                  <td>
+                    <button className="btn btn-warning">Edytuj</button>
+                    <button className="ml-2 btn btn-danger">Usuń</button>
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+          ) : (<p>Nie masz jeszcze żadnego motocykla</p>
+
+          )}
+          <Link to={`${url}/addj`} className="tn btn-primary">Dodaj motocykl</Link>
         </div>
-      );
+      )
     }
