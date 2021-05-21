@@ -29,14 +29,15 @@ export default function MyMotorcycles(props) {
           <table className="table">
             <thead>
               <th>Nazwa</th>
-              <th>Opcja</th>
+              <th>Status</th>
+              <th>Wyposażenie</th>
             </thead>
             <tbody>
             {motorcycles.map(motorcycle => (
                 <tr>
                 <td>{motorcycle.name}</td>
                 <td>
-                  <button className="btn btn-warning">Edytuj</button>
+                <Link to={`/profil/motorcycles/edit/${motorcycle.id}`} className="btn btn-warning">Edytuj</Link>
                   <button className="ml-2 btn btn-danger">Usuń</button>
                 </td>
               </tr>
