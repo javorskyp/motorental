@@ -12,11 +12,8 @@ export default function MyMotorcycles(props) {
   const fetchMotorcycles = async () => {
     try {
 
-      const res = await axios.get('/motorcycles.json')
-        const newMotorcycle = [];
-        for (const key in res.data ){
-          newMotorcycle.push({...res.data[key], id: key});
-        }
+      const res = await axios.get('/motorcycles.json');
+      const newMotorcycle = objectToArrayWithId(res.data);
         setMotorcycles(newMotorcycle);
       } catch (ex) {console.log(ex.response)
       }
