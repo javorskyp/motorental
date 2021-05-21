@@ -8,52 +8,47 @@ export default function MyMotorcycles(props) {
   const [auth] = useAuth();
   const {url} = useRouteMatch();
   const [motorcycles, setMotorcycles] = useState([]);
-  
 
   const fetchMotorcycles = async () => {
-      try {
+    try {
 
-        const res = {
-          'kfkdkdkdkd': {
-            name: 'Ducati'
-          }
-        };
-          const newMotorcycle = [];
-          for (const key in res ){
-            newMotorcycle.push({...res, id:key});
-          }
-        } catch (ex) {console.log(ex.response)
+      const res = await axios.get('/motorcycles.json')
+        const newMotorcycle = [];
+        for (const key in res.data ){
+          newMotorcycle.push({...res.data[key], id: key});
         }
-        }
+        setMotorcycles(newMotorcycle);
+      } catch (ex) {console.log(ex.response)
+      }
+      }
 
-        useEffect(() => {
-        fetchMotorcycles();
-      }, []);
+      useEffect(() => {
+      fetchMotorcycles();
+    }, []);
 
-      return (
-        <div>
-          {motorcycles ? (
-            <table className="table">
-              <thead>
-                <th>nazwa</th>
-                <th>opcja</th>
-              </thead>
-              <tbody>
-                
-                  <tr>
-                  <td>ddd</td>
-                  <td>
-                    <button className="btn btn-warning">Edytuj</button>
-                    <button className="ml-2 btn btn-danger">Usuń</button>
-                  </td>
-                </tr>
-               
-              </tbody>
-            </table>
-          ) : (<p>Nie masz jeszcze żadnego motocykla</p>
-
-          )}
-          <Link to={`${url}/addj`} className="tn btn-primary">Dodaj motocykl</Link>
-        </div>
-      )
-    }
+    return (
+      <div>
+        {motorcycles ? (
+          <table className="table">
+            <thead>
+              <th>Nazwa</th>
+              <th>Opcja</th>
+            </thead>
+            <tbody>
+            {motorcycles.map(motorcycle => (
+                <tr>
+                <td>{motorcycle.name}</td>
+                <td>
+                  <button className="btn btn-warning">Edytuj</button>
+                  <button className="ml-2 btn btn-danger">Usuń</button>
+                </td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+        ) : ( <p>Nie masz jeszcze żadnego motocykla</p>
+        )}
+        <Link to={`${url}/add`} className="btn btn-primary">Dodaj motocykl</Link>
+      </div>
+    )
+  }
