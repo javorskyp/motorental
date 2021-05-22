@@ -14,7 +14,7 @@ export default function MyMotorcycles(props) {
 
       const res = await axios.get('/motorcycles.json');
       const newMotorcycle = objectToArrayWithId(res.data);
-        setMotorcycles(newMotorcycle);
+        setMotorcycles(newMotorcycle.filter(motorcycle => motorcycle.userId === auth.userId));
       } catch (ex) {console.log(ex.response)
       }
       }
