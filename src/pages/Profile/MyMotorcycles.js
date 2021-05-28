@@ -9,33 +9,34 @@ export default function MyMotorcycles(props) {
   const {url} = useRouteMatch();
   const [motorcycles, setMotorcycles] = useState([]);
 
-  const deleteHandler = async id => {
-    try {
-      await axios.delete(`/motorcycles/${id}.json`);
-      setMotorcycles(motorcycles.filter(x => x.id !== id));
-    } catch (ex) {
-      console.log(ex.response);
+  useEffect(() => {
+    const fetchMotorcycles = async () => {
+      try {
+        const res = await axios.get('/motorcycles.json');
+        const newMotorcycles = objectToArrayWithId(res.data)
+                      .filter(motorcycle => motorcycle.userId === auth.userId);
+        setMotorcycles(newMotorcycles);
+      } catch (ex) {
+        console.log(ex.response);
+      }
     }
-  }
+    fetchMotorcycles();
+  }, [auth.userId]);
 
-    useEffect(() => {
-      const fetchMotorcycles = async () => {
+      const deleteHandler = async id => {
         try {
-          const res = await axios.get('/motorcycles.json');
-          const newMotorcycles = objectToArrayWithId(res.data)
-                        .filter(motorcycle => motorcycle.userId === auth.userId);
-          setMotorcycles(newMotorcycles);
+          await axios.delete(`/motorcycles/${id}.json`);
+          setMotorcycles(motorcycles.filter(x => x.id !== id));
         } catch (ex) {
           console.log(ex.response);
         }
       }
-      fetchMotorcycles();
-    }, [auth.userId]);
-  
+      useEffect(() => {
+    }, []);
 
     return (
-    <div>
-      {motorcycles ? (
+      <div>
+         {motorcycles ? (
         <table className="table">
           <thead>
             <tr>
@@ -68,4 +69,4 @@ export default function MyMotorcycles(props) {
         <Link to={`${url}/add`} className="btn btn-primary">Dodaj motocykl</Link>
         </div>
       );
-    }
+}
