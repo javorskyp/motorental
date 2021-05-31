@@ -21,7 +21,7 @@ export const InputCheckbox = props => {
             type="checkbox" 
             className="custom-control-input" 
             value={option.value}
-            checked={value.find(x => x === option.value) || false}
+            checked={value?.find(x => x === option.value) || false}
             onChange={changeFeatureHandler}
             id={option.value} />
           <label className="custom-control-label" htmlFor={option.value}>{option.label}</label>
